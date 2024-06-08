@@ -128,14 +128,14 @@ public class SkySightGUI extends JFrame{
                         break;
                 }
                 double temperature = (double) weatherData.get("temperature_2m");
-                temperatureText.setText(temperature + "°C");
+                temperatureText.setText((int)temperature + "°C");
                 weatherConditionDescription.setText(weatherCondition);
 
                 long humidity = (long) weatherData.get("relative_humidity_2m");
                 humidityText.setText("<html><b>Humidity</b> "+ humidity +"%</html>");
 
                 double windSpeed = (double) weatherData.get("wind_speed_10m");
-                windSpeedText.setText("<html><b>Windspeed</b> " + windSpeed + "km/h</html>");
+                windSpeedText.setText("<html><b>Windspeed</b> " + (int)windSpeed + "km/h</html>");
 
             }
         });
