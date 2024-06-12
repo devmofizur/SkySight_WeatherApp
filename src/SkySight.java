@@ -2,7 +2,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -17,7 +16,7 @@ public class SkySight {
         {
              return null;
         }
-        JSONObject location = (JSONObject) locationData.get(0);
+        JSONObject location = (JSONObject) locationData.get(0);  //not accurate near me
         double latitude = (double) location.get("latitude");
         double longitude = (double) location.get("longitude");
 
@@ -48,6 +47,7 @@ public class SkySight {
             JSONArray time = (JSONArray) hourly.get("time");
 
             int index = findIndexOfCurrentTime(time);
+
             JSONArray temperatureData = (JSONArray) hourly.get("temperature_2m");
             double temperature = (double) temperatureData.get(index);
 
@@ -60,7 +60,7 @@ public class SkySight {
             JSONArray windSpeedData = (JSONArray) hourly.get("wind_speed_10m");
             double windSpeed = (double) windSpeedData.get(index);
 
-            //Combining all data we got from API
+
             JSONObject weatherData = new JSONObject();
             weatherData.put("temperature_2m", temperature);
             weatherData.put("weather_code", weatherCondition);
@@ -126,7 +126,6 @@ public class SkySight {
 
     private static int findIndexOfCurrentTime(JSONArray timeList) {
         String currentTime = getCurrentTime();
-
         for(int i=0; i < timeList.size(); i++)
         {
             String time = (String) timeList.get(i);
@@ -138,9 +137,9 @@ public class SkySight {
         return 0;
     }
 
-    private static String getCurrentTime() {
+    public static String getCurrentTime() {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-'T'HH':00'");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH':00'");
         String formattedDateTime = currentDateTime.format(formatter);
         return  formattedDateTime;
     }

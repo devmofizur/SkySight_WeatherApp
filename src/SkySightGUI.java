@@ -150,9 +150,9 @@ public class SkySightGUI extends JFrame{
             return new ImageIcon(image);
         }
         catch (IOException e) {
-                e.printStackTrace();
+            System.out.println("File Not Found");
         }
-        System.out.println("File Not Found");
+
         return null;
     }
 }
